@@ -3,6 +3,7 @@ package com.chubbycat.coderswag.controller
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.chubbycat.coderswag.R
 import com.chubbycat.coderswag.adapters.CategoryAdapter
 import com.chubbycat.coderswag.model.Category
@@ -19,5 +20,6 @@ class MainActivity : AppCompatActivity() {
 
         adapter = CategoryAdapter(this, DataService.categories)
         listviewCategory.adapter = adapter
+
     }
 }
