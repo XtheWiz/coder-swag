@@ -11,13 +11,13 @@ import com.chubbycat.coderswag.R
 import com.chubbycat.coderswag.model.Category
 import kotlinx.android.synthetic.main.category_list_item.view.*
 
-class CategoryRecyclerAdapter(val context: Context, val categories: List<Category>) : RecyclerView.Adapter<CategoryRecyclerAdapter.Holder>() {
+class CategoryRecyclerAdapter(val context: Context, val categories: List<Category>, val itemClicked: (Category) -> Unit) : RecyclerView.Adapter<CategoryRecyclerAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context)
                 .inflate(R.layout.category_list_item, parent, false)
 
-        return Holder(view)
+        return Holder(view, itemClicked)
     }
 
     override fun getItemCount(): Int {
@@ -28,7 +28,7 @@ class CategoryRecyclerAdapter(val context: Context, val categories: List<Categor
         holder.bindCategory(context, categories[position])
     }
 
-    inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: View?, val itemClicked: (Category) -> Unit) : RecyclerView.ViewHolder(itemView) {
         val categoryImage = itemView?.findViewById<ImageView>(R.id.imvCategory)
         val categoryName  = itemView?.findViewById<TextView>(R.id.tvCategory)
 
@@ -39,6 +39,8 @@ class CategoryRecyclerAdapter(val context: Context, val categories: List<Categor
 
             categoryImage?.setImageResource(resourceId)
             categoryName?.text = category.title
+
+            itemView.setOnClickListener { itemClicked(category) }
         }
     }
 
